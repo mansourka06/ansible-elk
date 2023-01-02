@@ -1,0 +1,59 @@
+---
+
+############ elasticsearch installation ###################################
+- name: "elasticsearch install"
+  block:
+    - name: "Start of Elasticserach installation"
+      debug:
+        msg: "Launch of Elasticsearch installation"
+
+    - name: "Add Elasticsearch apt key"
+      apt_key:
+        url: "{{ es_apt_key }}"
+        state: present
+
+    - name: "Update repositories cache and install apt-transport-https package"
+      apt:
+        name: apt-transport-https
+        state: present
+        update_cache: yes
+
+    - name: "Add elasticsearch apt source"
+      apt_repository:
+        repo: "{{ es_apt_url }}"
+        state: present
+
+    - name: "Update repositories cache and install Elasticsearch package"
+      apt:
+        name: elasticsearch
+        state: present
+        update_cache: yes
+      become: yes
+
+    - name: "Check lasticsearch status"
+      service:
+        name: "{{ es_service_name }}"
+        state: stopped
+
+    - name: "Check service state lasticsearch"
+      service:
+        name: "{{ es_service_name }}"
+        state: started
+
+    - name: Enable service lasticsearch
+      service:
+        name: "{{ es_service_name }}"
+        enabled: yes
+
+    - name: "Check elasticsearch access page"
+      uri:
+        url: "{{ es_api_scheme }}://{{ es_api_host }}:{{ es_api_port }}"
+        method: GET
+      register: result
+
+    - debug:
+        msg: "Elasticsearch is installed successfully !"
+      when: result.status == 200
+  become: yes
+  tags:
+    - elasticsearch

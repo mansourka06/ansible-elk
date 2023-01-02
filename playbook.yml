@@ -1,0 +1,7 @@
+---
+- hosts: "{{ playbook_hosts }}"
+  connection: local 
+  gather_facts: yes
+
+  roles:
+    - ansible-elk

@@ -1,0 +1,9 @@
+---
+# tasks file for ansible-elk
+
+- name: "ELK Stack : Installation for Debian/Ubuntu hosts"
+  import_tasks: "install/ansible-elk-install-debian.yml"
+  tags: 
+    - elk-install-debian
+    - elasticsearch
+  when: ansible_os_family is regex('Debian|Ubuntu')
