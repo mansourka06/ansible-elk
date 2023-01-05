@@ -24,7 +24,7 @@ Dependencies:
 Role Variables:
 ---------------
 
-[defaults vars path](vars/main.yml)
+[defaults vars path](./roles/ansible-elk/vars/main.yml)
 
 
 
