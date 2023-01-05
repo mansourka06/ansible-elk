@@ -10,7 +10,7 @@ The stack components installed are:
 -  Logstash
 -  Kibana
 
-![alt text](elk-stack.png)
+![alt text](ansible.png)![alt text](elk-stack.png)
 
 Requirements:
 ------------
